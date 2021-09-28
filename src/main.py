@@ -61,7 +61,11 @@ async def count_bot(ctx):
     await ctx.send(totalUsers)
 
 @bot.command(name='admin', help='admin')
-async def mute_bot(ctx, member: discord.Member): 
+async def admin_bot(ctx, member: discord.Member):
+    """
+    The bot will add an admin role to the user, if the command is called on a muted user it will unmute him  
+    !admin <@member>
+    """
     if get(ctx.guild.roles, name="Admins"):
         print("Admins role already exists")
     else:
@@ -87,7 +91,11 @@ async def mute_bot(ctx, member: discord.Member):
 
 
 @bot.command(name='mute', help='create a Ghost role, disabling all textual channels permissions for that member. When typing that command towards an already muted member, the action should be reverted')
-async def mute_bot(ctx, member: discord.Member): 
+async def mute_bot(ctx, member: discord.Member):
+    """
+    The bot will mute a user and great a Ghost role , if the command is called on a muted user it will unmute him  
+    !mute <@member>
+    """
     if get(ctx.guild.roles, name="Ghost"):
         print("Ghost role already exists")
     else:
@@ -119,6 +127,10 @@ async def ban_bot(ctx, member: discord.Member, reason="You dont deserve to be he
 # It's all fun and games
 @bot.command(name='xkcd', help='`!xkcd, your post should post a random comic from https://xkcd.com')
 async def kcdb_bot(ctx):
+    """
+    Post a random meme from the site xkcd 
+    !xkcd
+    """
     number = random.randint(1,2521)
     site = "https://xkcd.com/{}/".format(number) 
     await ctx.send(site) 
@@ -127,10 +139,18 @@ async def kcdb_bot(ctx):
 
 @bot.command(name='repeat', help='`!repeat <word>, your bot should repeat the same word you said!')
 async def repeat_bot(ctx,arg):
-        await ctx.send(arg)
+    """
+    The bot will repeat what you say  
+    !repeat <word>
+    """
+    await ctx.send(arg)
 
-@bot.command(name='kick', help='`!kick <A member nickname>, your bot should create a Ghost role (if it doesn\'t exists), disabling all textual channels permissions for that member. When typing that command towards an already muted member, the action should be reverted')
-async def kick_bot(ctx, member: discord.Member, reason="You dont deserve to be here" ): 
+@bot.command(name='kick', help='`!kick <A member nickname>, your bot will kick a user ')
+async def kick_bot(ctx, member: discord.Member, reason="You dont deserve to be here" ):
+    """
+    The bot will kick a user from the discord server  
+    !kick <@Member>
+    """ 
     await member.kick(reason=reason) 
     await ctx.send(f'User {member} has been kicked from the server.')     
 
@@ -154,11 +174,16 @@ async def poll(ctx, question, *cmd: str):
     else:
         reactions = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟']
 
+    embed = discord.Embed(title=question, description=''.join(cmd))
+    react_message = await ctx.send(embed=embed)
 
+    for reaction in reactions[:len(cmd)]:
+        await react_message.add_reaction(reaction)
+    embed.set_footer(text='Poll ID: {}'.format(react_message.id))
+    await react_message.edit_message(embed=embed)
 
 
 
 #DO NOT TOUCH
-token = ""
+token = "ODkyODIyOTE2NTA3NTIxMDU1.YVSgIw.Q3kIBSHOM0FFRwMRnferrIbjzn0"
 bot.run(token)  # Starts the bot
-
