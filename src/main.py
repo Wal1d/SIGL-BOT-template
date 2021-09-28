@@ -63,7 +63,7 @@ async def count_bot(ctx):
 @bot.command(name='admin', help='admin')
 async def admin_bot(ctx, member: discord.Member):
     """
-    The bot will add an admin role to the user, if the command is called on a muted user it will unmute him  
+    The bot will add an admin role to the user and he will have full access and if the role is not created it will create it and give him the role"  
     !admin <@member>
     """
     if get(ctx.guild.roles, name="Admins"):
@@ -73,8 +73,7 @@ async def admin_bot(ctx, member: discord.Member):
         perms.update(manage_channels=True, kick_members= True,
                                         ban_members=True, send_messages=True, read_messages=True)
                                         
-        # perms.update(discord.Permissions.text())
-        
+         
         await ctx.guild.create_role(name="Admins", permissions=perms, colour=discord.Colour(0xF50B0B))
         print("Admins role was created!")
 
@@ -118,7 +117,7 @@ async def mute_bot(ctx, member: discord.Member):
 async def ban_bot(ctx, member: discord.Member, reason="You dont deserve to be here"):
     """
     Ban a member 
-    !ban <Member>
+    !ban <@member>
     """
     await member.ban(reason=reason) 
     await ctx.send(f'User {member} has been banned from the server.') 
