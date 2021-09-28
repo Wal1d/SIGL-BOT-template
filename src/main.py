@@ -145,7 +145,7 @@ async def repeat_bot(ctx,arg):
     """
     await ctx.send(arg)
 
-@bot.command(name='kick', help='`!kick <A member nickname>, your bot will kick a user ')
+@bot.command(name='kick', help='`!kick <A member nickname>, your bot will kick a user!')
 async def kick_bot(ctx, member: discord.Member, reason="You dont deserve to be here" ):
     """
     The bot will kick a user from the discord server  
@@ -185,5 +185,5 @@ async def poll(ctx, question, *cmd: str):
 
 
 #DO NOT TOUCH
-token = "ODkyODIyOTE2NTA3NTIxMDU1.YVSgIw.Q3kIBSHOM0FFRwMRnferrIbjzn0"
+token = ""
 bot.run(token)  # Starts the bot
