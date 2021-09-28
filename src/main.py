@@ -181,8 +181,6 @@ async def poll(ctx, question, *cmd: str):
     embed.set_footer(text='Poll ID: {}'.format(react_message.id))
     await react_message.edit_message(embed=embed)
 
-
-
 #DO NOT TOUCH
 token = ""
 bot.run(token)  # Starts the bot
